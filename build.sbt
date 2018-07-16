@@ -17,8 +17,12 @@ lazy val buildVersion = sys.props.getOrElse("buildVersion", "1.0.0-SNAPSHOT")
 
 version in ThisBuild := buildVersion
 
+publishTo in ThisBuild := Some(Resolver.file("file", file("foo")))
+
 val dockerSettings = Seq(
-  dockerRepository := sys.props.get("dockerRepository"),
+  // dockerRepository := sys.props.get("dockerRepository"),
+  dockerRepository := Some("us.gcr.io"),
+  packageName in Docker := "platform-tooling/" + moduleName.value,
   memory := 512 * 1024 * 1024,
   cpu := 0.25
 )
